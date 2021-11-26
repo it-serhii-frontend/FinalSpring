@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<meta charset="ISO-8859-1">
+<title th:utext="#{header.title}"></title>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom ">
+
+		<a class="navbar-brand" href="/admin/main"> <img
+			src="/imgs/header.jpg" width="400" height="128" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav menu-nav">
+
+				<li class="nav-item active l1"><a class="nav-link" href="/main"
+					th:utext="#{header.menu.main}"> <span class="sr-only">(current)</span>
+				</a></li>
+
+
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"
+					th:utext="#{header.menu.catalog}"></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="#" th:utext="#{header.menu.tea}"></a>
+						<a class="dropdown-item" href="/allDish"
+							th:utext="#{header.menu.dish}"></a>
+					</div></li>
+
+
+				<li sec:authorize="isAnonymous()" class="nav-item active l1"><a
+					class="nav-link" href="/signup" th:utext="#{header.menu.regist}"><span
+						class="sr-only">(current)</span> </a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link" href="#" th:href="@{/admin/main}"
+					th:utext="#{header.menu.admin}"></a></li>
+
+				<li class="nav-item active l1"><a class="nav-link"
+					href="/aboutUs" th:utext="#{header.menu.aboutUs}"><span
+						class="sr-only">(current)</span> </a></li>
+
+			</ul>
+			<form class="nav-item active l1" form-method="post"
+				th:action="@{/logout}">
+				<button sec:authorize="isAuthenticated()" type="submit"
+					class="btn btn-secondary" th:utext="#{header.menu.logout}"></button>
+				<button sec:authorize="isAnonymous()" th:href="@{~/login}"
+					type="submit" class="btn btn-secondary">Login</button>
+			</form>
+		</div>
+		<div style="text-align: right; padding: 5px; margin: 5px 0px;">
+			<a th:href="@{?lang=en}"> <img alt="" src="/imgs/usa1.jpg"
+				style="width: 37px; height: 37px;"></a><a th:href="@{?lang=uk}"><img
+				alt="" src="/imgs/ukr1.jpg" style="width: 40px; height: 40px;"></a>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div
+			style="width: 600px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
+			<div class="card">
+				<div class="card-block" style="padding: 24px;">
+					<form th:action="@{/admin/addProduct}" method="post"
+						enctype="multipart/form-data">
+							<input type="hidden" name="productId"
+								th:value="${Product.productId}">
+
+							<div class="form-group">
+								<label for="productName" th:utext="#{admin.editProduct.name}"></label> <input type="text" 
+									class="form-control" id="productName" name="productName"
+									th:value="${Product.productName}">
+							</div>
+
+							<div class="form-group">
+								<label for="productDescription" th:utext="#{admin.editProduct.description}"></label> <input
+									type="text" class="form-control" id="productDescription"
+									name="productDescription"
+									th:value="${Product.productDescription}">
+							</div>
+
+							<div class="form-group">
+								<label for="productPrice" th:utext="#{admin.editProduct.price}"></label> <input
+									type="number" class="form-control" id="productPrice"
+									name="productPrice" th:value="${Product.productPrice}">
+							</div>
+
+							<div class="form-group">
+								<label for="productUnit" th:utext="#{admin.editProduct.unit}"></label> <input
+									type="number" class="form-control" id="productUnit"
+									name="productUnit" th:value="${Product.productUnit}">
+							</div>
+
+							
+							<div class="form-group">
+								<label for="created" th:utext="#{admin.editProduct.created}"></label> <input
+									type="text" class="form-control" id="created"
+									name="created" th:value="${Product.created}">
+							</div>
+							
+							<div class="form-group">
+								<label for="productCategory" th:utext="#{admin.editProduct.category}"></label> <input
+									type="text" class="form-control" id="productCategory"
+									name="productCategory" th:value="${Product.productCategory}">
+							</div>
+
+							<div class="form-group">
+								<label for="file" th:utext="#{admin.editProduct.img}"></label> <input type="file"
+									class="form-control" id="file" name="file">
+							</div>
+							<div class="form-actions" style="margin-top: 12px;">
+								<button type="submit" th:utext="#{admin.editProduct.buttom.edit}"></button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

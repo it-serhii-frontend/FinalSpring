@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:utext="#{header.title}"></title>
+
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+	<header th:insert="/header.html :: nav"></header>
+
+
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+
+		<div class="txt-b">
+			<span class="sm">Vantea</span> <br> <span class="txt">Каталог
+				посуду</span> <br> <span class="sm">Тут ви знайдете найзручніше
+				начиння для чаювання</span> <br>
+		</div>
+
+
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="/imgs/teaBack.jpg" alt="First slide">
+
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="/imgs/teaBack1.jpg"
+					alt="Second slide">
+			</div>
+
+		</div>
+	</div>
+
+	<div class="header2">Виберіть чайний посуд під ваш настрій</div>
+
+	<div class="subHead">
+		<div class="subHead2">У нас є все, що може зробити ваш затишний
+			вечір чи бадьорий ранок. Достатньо обрати Чашку, додати Чайник
+			необхідного розміру і оформити замовлення.</div>
+	</div>
+
+	<div class="container" style="max-width: 70%">
+
+
+		<div class="cont">
+			<h5 th:utext="#{allProducts.sort.name}"></h5>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.nameZ-A}"></label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/desc-n/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.nameA-Z}">:</label>
+			</div>
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/asc-n/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+
+		</div>
+
+		<div class="cont">
+			<h5 th:utext="#{allProducts.sort.price}"></h5>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.priceFromRich}"></label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/asc-p/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.priceFromCheap}"></label>
+			</div>
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/desc-p/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="cont">
+			<h5 th:utext="#{allProducts.sort.nov}"></h5>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.novFromOld}"></label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/asc-nov/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.novFromNew}"></label>
+			</div>
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/desc-nov/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+		</div>
+
+
+		<div class="cont">
+			<h5 th:utext="#{allProducts.sort.category}"></h5>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.novGlass}"></label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/glasses/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales" th:utext="#{allProducts.sort.novKettle}"></label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/kettles/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+		</div>
+
+
+		<div class="cont">
+			<h5 th:utext="#{allProducts.sort.years}"></h5>
+
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales">2020:</label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/2020/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+			<div>
+				<input type="checkbox" id="scales" name="scales"> <label
+					for="scales">2021:</label>
+			</div>
+
+			<ul class="nav nav-pills"
+				style="margin-top: 20px; margin-bottom: 20px">
+				<li class="nav-item"
+					th:each="i: ${#numbers.sequence(0,productList.totalPages-1)}">
+					<a th:href="@{/allDish/2021/(page=${i})}" th:text="${i}"
+					class="nav-link" th:classappend="${currentPage}==${i}?'active':''"></a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+	<div class="container" style="width: 50%">
+
+		<table style="width: 100%">
+			<thead>
+				<tr>
+					<th th:utext="#{allProducts.image}"></th>
+					<th th:utext="#{allProducts.name}"></th>
+					<th th:utext="#{allProducts.description}"></th>
+					<th th:utext="#{allProducts.price}"></th>
+					<th th:utext="#{allProducts.category}"></th>
+					<th th:utext="#{allProducts.unit}"></th>
+					<th th:utext="#{allProducts.created}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${productList.empty}">
+					<td colspan="2" th:utext="#{allProducts.noProducts}"></td>
+				</tr>
+				<tr th:each="product : ${productList}">
+					<td><img th:src="${product.image}"></td>
+					<td><span th:text="${product.productName}"> </span></td>
+					<td><span th:text="${product.productDescription}"> </span></td>
+					<td><span th:text="${product.productPrice}"> </span></td>
+					<td><span th:text="${product.productCategory}"> </span></td>
+					<td><span th:text="${product.productUnit}"> </span></td>
+					<td><span th:text="${product.created}"> </span></td>
+
+					<td><a sec:authorize="isAuthenticated()"
+						th:href="@{'~/user/cartUser/' + ${product.productId}}" th:utext="#{allProducts.buttom.addToCart}"></a></td>
+					<td><a sec:authorize="isAnonymous()"
+						th:href="@{'~/cart/'+ ${product.productId}}" th:utext="#{allProducts.buttom.addToCart}"></a></td>
+
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+	<header th:insert="/footer.html :: footer"></header>
+</body>
+</html>

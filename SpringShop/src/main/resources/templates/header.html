@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom ">
+
+		<a class="navbar-brand" href="/main"> <img src="/imgs/header.jpg"
+			width="400" height="128" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav menu-nav">
+
+				<li class="nav-item active l1"><a class="nav-link" href="/main" th:utext="#{header.menu.main}">
+						<span class="sr-only">(current)</span>
+				</a></li>
+
+
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#"
+					id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false" th:utext="#{header.menu.catalog}"></a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="#"th:utext="#{header.menu.tea}"></a> <a class="dropdown-item"
+							href="/allDish" th:utext="#{header.menu.dish}"></a>
+					</div></li>
+
+
+				<li sec:authorize="isAnonymous()" class="nav-item active l1"><a
+					class="nav-link" href="/signup" th:utext="#{header.menu.regist}"><span class="sr-only">(current)</span>
+				</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link" href="#" th:href="@{/admin/main}" th:utext="#{header.menu.admin}"></a></li>
+
+				<li class="nav-item active l1"><a
+					sec:authorize="isAuthenticated()" class="nav-link"
+					th:href="@{'~/user/check/'}" th:utext="#{header.menu.order}"><span class="sr-only">(current)</span>
+				</a></li>
+
+				<li class="nav-item active l1"><a sec:authorize="isAnonymous()"
+					class="nav-link" href="/cart" th:utext="#{header.menu.bucket}"><span class="sr-only">(current)</span></a></li>
+				<li class="nav-item active l1"><a
+					sec:authorize="hasRole('ROLE_USER')" class="nav-link"
+					th:href="@{'~/user/cartUser/'}" th:utext="#{header.menu.bucket}"><span class="sr-only">(current)</span></a></li>
+				<li class="nav-item active l1"><a class="nav-link"
+					href="aboutUs" th:utext="#{header.menu.aboutUs}"><span class="sr-only">(current)</span>
+				</a></li>
+
+			</ul>
+			<form class="nav-item active l1" form-method="post"
+				th:action="@{/logout}">
+				<button sec:authorize="isAuthenticated()" type="submit"
+					class="btn btn-secondary" th:utext="#{header.menu.logout}"></button>
+				<button sec:authorize="isAnonymous()" th:href="@{~/login}"
+					type="submit" class="btn btn-secondary"  th:utext="#{header.menu.exit}"></button>
+			</form>
+		</div>
+		<div
+			style="text-align: right; padding: 5px; margin: 5px 0px;">
+			<a th:href="@{?lang=en}">	<img alt="" src="/imgs/usa1.jpg"style="width: 37px; height: 37px;"></a><a
+				th:href="@{?lang=uk}"><img alt="" src="/imgs/ukr1.jpg"style="width: 40px; height: 40px;"></a>
+		</div>
+
+	</nav>
+</body>
+</html>
